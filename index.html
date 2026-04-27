@@ -1,214 +1,1162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HCEOS | Human Capital Enterprise Operating System</title>
-    <style>
-        :root {
-            --usmc-red: #8e2424;
-            --usmc-gold: #ceb888;
-            --dark: #1a1a1a;
-            --bg-gray: #f4f4f4;
-            --white: #ffffff;
-            --text: #333;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HCEOS — Human Capital Enterprise Operating System</title>
+<style>
+  :root {
+    --ink: #0b1220;
+    --ink-2: #1a2233;
+    --slate: #4a5568;
+    --slate-2: #6b7280;
+    --line: #e3e6eb;
+    --line-2: #cfd4dc;
+    --bg: #ffffff;
+    --bg-2: #f6f7f9;
+    --bg-3: #eef0f3;
+    --accent: #8a1414;
+    --accent-2: #b03030;
+    --warn: #a14a00;
+    --good: #1f5e3a;
+    --maxw: 1140px;
+  }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: var(--text);
-            line-height: 1.6;
-            background-color: var(--white);
-        }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.55;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+  a { color: var(--ink); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
-        /* HERO SECTION */
-        header {
-            padding: 120px 0 80px;
-            background: var(--dark);
-            color: var(--white);
-            text-align: center;
-            border-bottom: 6px solid var(--usmc-red);
-        }
-        h1 { font-size: 3rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 15px; }
-        .subtitle { font-size: 1.4rem; color: var(--usmc-gold); font-weight: 300; max-width: 800px; margin: 0 auto; }
+  /* Layout */
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+  section { padding: 96px 0; border-top: 1px solid var(--line); }
+  section:first-of-type { border-top: 0; }
 
-        /* CORE THESIS: PEOPLE AT THE CENTER */
-        .thesis-section { padding: 80px 0; text-align: center; background: var(--white); }
-        .thesis-box { max-width: 900px; margin: 0 auto; }
-        .thesis-box h2 { font-size: 2.2rem; margin-bottom: 20px; color: var(--dark); }
-        .highlight-red { color: var(--usmc-red); font-weight: 800; }
+  /* Navigation */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: saturate(180%) blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 13px;
+  }
+  .brand { font-weight: 700; letter-spacing: 0.02em; }
+  .brand .dot { color: var(--accent); }
+  .nav-links { display: flex; gap: 24px; color: var(--slate); }
+  .nav-links a { color: var(--slate); }
+  .nav-links a:hover { color: var(--ink); text-decoration: none; }
 
-        /* THE MARINE LIFECYCLE (Visual Blocks) */
-        .lifecycle-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 40px; }
-        .lifecycle-step { background: var(--bg-gray); padding: 30px 20px; border-top: 4px solid var(--dark); text-align: center; }
-        .lifecycle-step h4 { color: var(--usmc-red); text-transform: uppercase; margin-bottom: 10px; font-size: 0.9rem; }
+  /* Eyebrow */
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 12px;
+    color: var(--slate);
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  .eyebrow .num {
+    display: inline-block;
+    margin-right: 10px;
+    color: var(--accent);
+    font-weight: 700;
+  }
 
-        /* SECTION STYLING */
-        section { padding: 100px 0; border-bottom: 1px solid #eee; }
-        .section-header { margin-bottom: 50px; }
-        .section-header h2 { font-size: 2rem; text-transform: uppercase; border-left: 6px solid var(--usmc-red); padding-left: 20px; }
+  /* Hero */
+  .hero { padding: 140px 0 120px; }
+  .hero h1 {
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin: 0 0 28px;
+    max-width: 16ch;
+  }
+  .hero .lead {
+    font-size: clamp(18px, 1.6vw, 22px);
+    color: var(--slate);
+    max-width: 70ch;
+    margin: 0 0 40px;
+  }
+  .hero .callout {
+    border-left: 3px solid var(--accent);
+    padding: 18px 22px;
+    background: var(--bg-2);
+    color: var(--ink-2);
+    max-width: 78ch;
+    font-size: 16px;
+  }
+  .hero-meta {
+    display: flex; gap: 32px; flex-wrap: wrap;
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--slate);
+  }
+  .hero-meta div span { display: block; color: var(--ink); font-weight: 600; margin-top: 2px; }
 
-        /* CARDS */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .card { padding: 30px; background: var(--bg-gray); border: 1px solid #ddd; }
-        .card h3 { margin-bottom: 15px; font-size: 1.3rem; }
+  /* Section titles */
+  h2.section-title {
+    font-size: clamp(28px, 3.2vw, 40px);
+    letter-spacing: -0.01em;
+    font-weight: 700;
+    margin: 0 0 20px;
+    max-width: 24ch;
+  }
+  .section-sub {
+    color: var(--slate);
+    font-size: 17px;
+    max-width: 70ch;
+    margin: 0 0 48px;
+  }
 
-        /* THE ONTOLOGY (FEDERATED LAYER) */
-        .ontology-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .ontology-table th { background: var(--dark); color: white; text-align: left; padding: 15px; }
-        .ontology-table td { padding: 15px; border-bottom: 1px solid #ddd; vertical-align: top; }
-        .tag { background: #eee; padding: 4px 8px; border-radius: 3px; font-size: 0.8rem; font-weight: bold; }
+  /* Cards grid */
+  .grid { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .card {
+    background: #fff;
+    padding: 28px 26px;
+  }
+  .card h3 {
+    font-size: 17px;
+    margin: 0 0 10px;
+    letter-spacing: -0.005em;
+  }
+  .card p {
+    margin: 0;
+    color: var(--slate);
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+  .card .tag {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
 
-        /* BLUNT TRUTH BOX */
-        .failure-modes { background: #fff0f0; border: 2px solid var(--usmc-red); padding: 40px; margin-top: 30px; }
-        .failure-modes h3 { color: var(--usmc-red); margin-bottom: 20px; }
-        .failure-list { column-count: 2; list-style-position: inside; font-weight: 600; }
+  /* Insight statement */
+  .insight {
+    background: var(--ink);
+    color: #fff;
+    border-top: 0;
+  }
+  .insight .wrap { padding-top: 110px; padding-bottom: 110px; }
+  .insight .quote {
+    font-size: clamp(28px, 3.6vw, 46px);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    max-width: 22ch;
+    margin: 0 0 24px;
+  }
+  .insight .quote em { color: var(--accent-2); font-style: normal; }
+  .insight p { color: #b9c0cc; max-width: 60ch; font-size: 17px; }
 
-        /* FOOTER */
-        footer { padding: 80px 0; background: var(--dark); color: white; text-align: center; }
-        .final-statement { font-size: 2rem; color: var(--usmc-gold); margin-bottom: 20px; font-weight: 800; }
+  /* System diagram */
+  .diagram {
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    padding: 36px;
+    border-radius: 2px;
+  }
+  .diagram svg { display: block; width: 100%; height: auto; }
 
-        @media (max-width: 768px) { .grid-2, .lifecycle-grid { grid-template-columns: 1fr; } .failure-list { column-count: 1; } }
-    </style>
+  /* Architecture layers */
+  .layers { display: grid; gap: 16px; }
+  .layer {
+    border: 1px solid var(--line);
+    padding: 28px;
+    background: #fff;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  .layer .lname {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--slate);
+    font-weight: 700;
+  }
+  .layer h3 { margin: 6px 0 0; font-size: 22px; }
+  .layer .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill {
+    border: 1px solid var(--line-2);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--ink-2);
+    background: #fff;
+  }
+  .pill.dark { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .layer-note {
+    margin-top: 24px;
+    padding: 14px 18px;
+    background: var(--bg-3);
+    color: var(--ink-2);
+    font-size: 14px;
+    border-left: 3px solid var(--ink);
+  }
+
+  /* Use cases */
+  .uc-list { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .uc {
+    background: #fff;
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 24px;
+  }
+  .uc .n {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .uc h3 { margin: 0 0 18px; font-size: 20px; letter-spacing: -0.01em; }
+  .uc-row { display: grid; grid-template-columns: 160px 1fr; gap: 16px; padding: 10px 0; border-top: 1px dashed var(--line); }
+  .uc-row:first-of-type { border-top: 0; }
+  .uc-row .k {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--slate);
+    font-weight: 700;
+    padding-top: 2px;
+  }
+  .uc-row .v { color: var(--ink-2); font-size: 14.5px; }
+  .uc-row .v strong { color: var(--ink); }
+  .deps { display: flex; flex-wrap: wrap; gap: 6px; }
+  .dep {
+    border: 1px solid var(--line-2);
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+    background: var(--bg-2);
+    color: var(--ink-2);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  /* MVP */
+  .mvp-wrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: start; }
+  .mvp-uc { border-top: 1px solid var(--line); padding: 22px 0; }
+  .mvp-uc:first-child { border-top: 0; padding-top: 0; }
+  .mvp-uc h4 { margin: 0 0 6px; font-size: 17px; }
+  .mvp-uc p { margin: 0; color: var(--slate); font-size: 14.5px; }
+  .mvp-constraints {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    padding: 28px;
+  }
+  .mvp-constraints h4 { margin: 0 0 14px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--slate); }
+  .mvp-constraints ul { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: 14.5px; }
+  .mvp-constraints li { margin: 8px 0; }
+
+  /* Two-column IS / IS NOT */
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .col {
+    background: #fff;
+    padding: 32px;
+  }
+  .col h3 {
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.18em;
+    margin: 0 0 18px;
+  }
+  .col.is h3 { color: var(--good); }
+  .col.isnot h3 { color: var(--accent); }
+  .col ul { margin: 0; padding: 0; list-style: none; }
+  .col li {
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+    font-size: 15.5px;
+  }
+  .col li:first-child { border-top: 0; }
+
+  /* Break-list */
+  .break-list { columns: 2; column-gap: 48px; }
+  .break-list .b {
+    break-inside: avoid;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+  }
+  .break-list .b:first-child { border-top: 0; }
+  .break-list h4 { margin: 0 0 4px; font-size: 16px; color: var(--accent); }
+  .break-list p { margin: 0; color: var(--slate); font-size: 14.5px; }
+
+  /* Palantir Q list */
+  .q-list { display: grid; gap: 0; }
+  .q {
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 18px;
+    align-items: baseline;
+  }
+  .q:first-child { border-top: 0; }
+  .q .qn { font-weight: 700; color: var(--accent); font-size: 14px; letter-spacing: 0.04em; }
+  .q .qt { font-size: 18px; color: var(--ink); letter-spacing: -0.005em; }
+
+  /* Phases */
+  .phases { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; border: 1px solid var(--line); }
+  .phase {
+    padding: 24px 18px;
+    border-right: 1px solid var(--line);
+    background: #fff;
+  }
+  .phase:last-child { border-right: 0; }
+  .phase .pn {
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--slate); font-weight: 700;
+  }
+  .phase h4 { margin: 6px 0 8px; font-size: 16px; }
+  .phase p { margin: 0; font-size: 13px; color: var(--slate); line-height: 1.5; }
+  .gates {
+    margin-top: 20px;
+    padding: 18px 22px;
+    border-left: 3px solid var(--accent);
+    background: var(--bg-2);
+    color: var(--ink-2);
+    font-size: 14.5px;
+  }
+  .gates strong { color: var(--ink); }
+
+  /* Closing */
+  .closing { background: var(--ink); color: #fff; border-top: 0; }
+  .closing .wrap { padding-top: 130px; padding-bottom: 130px; }
+  .closing h2 {
+    font-size: clamp(30px, 4vw, 52px);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    max-width: 24ch;
+    margin: 0 0 36px;
+    font-weight: 700;
+  }
+  .closing .final {
+    color: var(--accent-2);
+    font-size: clamp(18px, 1.6vw, 22px);
+    font-weight: 600;
+    border-top: 1px solid #2a3245;
+    padding-top: 28px;
+    max-width: 60ch;
+  }
+
+  /* Footer */
+  footer {
+    padding: 36px 0;
+    border-top: 1px solid var(--line);
+    color: var(--slate);
+    font-size: 13px;
+  }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+
+  /* DC,I callout */
+  .gov-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: start; }
+  .gov-list { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .gov-item { background: #fff; padding: 18px 22px; }
+  .gov-item .gk { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--slate); font-weight: 700; }
+  .gov-item .gv { font-size: 16px; color: var(--ink); margin-top: 4px; }
+  .gov-callout {
+    background: var(--ink);
+    color: #fff;
+    padding: 28px;
+    font-size: 17px;
+    line-height: 1.5;
+    border-left: 3px solid var(--accent);
+  }
+
+  /* Stakeholder ribbon (hero or after problem) */
+  .stake {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border: 1px solid var(--line);
+    background: #fff;
+    margin-top: 56px;
+  }
+  .stake .s {
+    padding: 18px 14px;
+    border-right: 1px solid var(--line);
+  }
+  .stake .s:last-child { border-right: 0; }
+  .stake .s .role {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700;
+  }
+  .stake .s .who { font-size: 15px; font-weight: 700; margin-top: 4px; }
+  .stake .s .desc { font-size: 12.5px; color: var(--slate); margin-top: 2px; line-height: 1.4; }
+
+  /* Responsive */
+  @media (max-width: 980px) {
+    .grid-3 { grid-template-columns: 1fr 1fr; }
+    .phases { grid-template-columns: repeat(3, 1fr); }
+    .phase:nth-child(3) { border-right: 0; }
+    .stake { grid-template-columns: repeat(2, 1fr); }
+    .stake .s { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .layer { grid-template-columns: 1fr; gap: 12px; }
+    .mvp-wrap { grid-template-columns: 1fr; gap: 24px; }
+    .gov-grid { grid-template-columns: 1fr; gap: 24px; }
+    .break-list { columns: 1; }
+    .uc { grid-template-columns: 40px 1fr; gap: 14px; padding: 22px; }
+    .uc-row { grid-template-columns: 1fr; gap: 4px; }
+  }
+  @media (max-width: 620px) {
+    section { padding: 64px 0; }
+    .hero { padding: 90px 0 70px; }
+    .grid-3, .grid-2, .compare { grid-template-columns: 1fr; }
+    .phases { grid-template-columns: 1fr 1fr; }
+    .stake { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .wrap { padding: 0 22px; }
+  }
+</style>
 </head>
 <body>
 
-<header>
-    <div class="container">
-        <h1>Human Capital Enterprise Operating System</h1>
-        <p class="subtitle">A federated decision-support architecture built to prioritize <strong>The Marine</strong> over the system.</p>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">HCEOS<span class="dot">.</span> <span style="color:var(--slate);font-weight:500;">Concept Brief</span></div>
+    <div class="nav-links">
+      <a href="#problem">Problem</a>
+      <a href="#system">System</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#usecases">Use Cases</a>
+      <a href="#mvp">MVP</a>
+      <a href="#governance">Governance</a>
+      <a href="#risks">Risks</a>
     </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">00</span> Human Capital Enterprise Operating System</div>
+    <h1>Capability Is Produced — Not Managed.</h1>
+    <p class="lead">
+      The Marine Corps manages people, money, training, and operational demand through disconnected systems.
+      There is no shared decision layer connecting them into capability.
+    </p>
+    <div class="callout">
+      HCEOS is a federated operating model that links demand, supply, production, resources, and governance —
+      without replacing authoritative systems.
+    </div>
+
+    <div class="stake">
+      <div class="s"><div class="role">Demand · Current</div><div class="who">PP&amp;O</div><div class="desc">Operational requirement</div></div>
+      <div class="s"><div class="role">Demand · Future</div><div class="who">CD&amp;I</div><div class="desc">Force design</div></div>
+      <div class="s"><div class="role">Supply · Inputs</div><div class="who">MCRC</div><div class="desc">Accessions pipeline</div></div>
+      <div class="s"><div class="role">Supply · Inventory</div><div class="who">M&amp;RA</div><div class="desc">Lifecycle &amp; talent</div></div>
+      <div class="s"><div class="role">Production</div><div class="who">TECOM</div><div class="desc">Training capacity</div></div>
+      <div class="s"><div class="role">Resources</div><div class="who">P&amp;R</div><div class="desc">PPBE / funding</div></div>
+      <div class="s"><div class="role">Governance</div><div class="who">DC,I</div><div class="desc">Data, AI, ATO</div></div>
+    </div>
+
+    <div class="hero-meta">
+      <div>Document<span>Concept Brief — Executive</span></div>
+      <div>Audience<span>Service GO/SES Leadership</span></div>
+      <div>Status<span>Pre-decisional</span></div>
+      <div>Scope<span>Service-wide federated architecture</span></div>
+    </div>
+  </div>
 </header>
 
-<section class="thesis-section">
-    <div class="container">
-        <div class="thesis-box">
-            <h2>Capability is <span class="highlight-red">Produced</span> — Not Managed</h2>
-            <p style="font-size: 1.2rem;">The Marine Corps manages people, money, and training in isolation. This creates friction for the individual and risk for the Commander. HCEOS is the <strong>connective tissue</strong> that integrates these disparate domains into a single Marine-centric reality.</p>
-        </div>
-        
-        <div class="lifecycle-grid">
-            <div class="lifecycle-step"><h4>Accession</h4>MCRC Pipeline</div>
-            <div class="lifecycle-step"><h4>Production</h4>TECOM Training</div>
-            <div class="lifecycle-step"><h4>Inventory</h4>M&RA Lifecycle</div>
-            <div class="lifecycle-step"><h4>Demand</h4>PP&O / CD&I</div>
-            <div class="lifecycle-step"><h4>Resources</h4>P&R / Funding</div>
-        </div>
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">01</span> The Real Problem</div>
+    <h2 class="section-title">Six failures, one root cause.</h2>
+    <p class="section-sub">
+      The Marine Corps does not have a manpower problem. It has a capability production problem
+      across disconnected domains. Each domain is internally rational. The enterprise is not.
+    </p>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="tag">01 · Structure</div>
+        <h3>Disconnected Domains</h3>
+        <p>M&amp;RA, P&amp;R, TECOM, MCRC, PP&amp;O, and CD&amp;I operate against domain-specific data, processes, and timelines. None can answer enterprise-level questions without manual reconciliation.</p>
+      </div>
+      <div class="card">
+        <div class="tag">02 · Demand</div>
+        <h3>No Demand Signal Integration</h3>
+        <p>PP&amp;O operational demand and CD&amp;I future requirements never meet supply, production, and resource constraints in a single, traceable signal.</p>
+      </div>
+      <div class="card">
+        <div class="tag">03 · Workflow</div>
+        <h3>Invisible Workflows</h3>
+        <p>Boards, awards, assignments, and exception cases move through email, SharePoint, and personal tracking. There is no system view of decisions in flight or stalled.</p>
+      </div>
+      <div class="card">
+        <div class="tag">04 · Risk</div>
+        <h3>No Enterprise Risk Model</h3>
+        <p>Risk is described, not computed. Manpower, training, and funding risk cannot be aggregated into a single decision-grade view of where capability is failing.</p>
+      </div>
+      <div class="card">
+        <div class="tag">05 · Optimization</div>
+        <h3>Local Optimization, Enterprise Failure</h3>
+        <p>Each domain optimizes against its own metrics. The sum is misaligned: filled billets without trained Marines, funded programs without throughput, demand without supply.</p>
+      </div>
+      <div class="card">
+        <div class="tag">06 · Sprawl</div>
+        <h3>Redundant System Growth</h3>
+        <p>Every command builds its own dashboard, ontology, and AI pilot. Each one is rational alone. Together they create permanent fragmentation and recurring sustainment debt.</p>
+      </div>
     </div>
+
+    <div style="margin-top:40px; padding:22px 26px; background: var(--ink); color:#fff; border-left:3px solid var(--accent);">
+      <strong>This is not a tooling issue.</strong> &nbsp; It is a system design failure.
+      No platform purchase resolves it. No single-domain pilot demonstrates it.
+    </div>
+  </div>
 </section>
 
+<!-- INSIGHT -->
+<section class="insight">
+  <div class="wrap">
+    <div class="eyebrow" style="color:#9aa3b2;"><span class="num" style="color:var(--accent-2);">02</span> Core Insight</div>
+    <p class="quote">The risk is not building this <em>wrong</em>. The risk is building it <em>five times</em>.</p>
+    <p>
+      Each organization is solving its own problem. None are solving the system.
+      Five parallel ontologies, five governance models, five Foundry instances, five sustainment tails —
+      all delivering versions of the same conclusion two years late.
+    </p>
+  </div>
+</section>
+
+<!-- SYSTEM DIAGRAM -->
+<section id="system">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">03</span> Enterprise Capability System</div>
+    <h2 class="section-title">A closed loop, not a stack.</h2>
+    <p class="section-sub">
+      Capability is produced through a sequence: demand → supply → production → execution.
+      Resources and governance overlay every stage. Execution feeds demand. Today, this loop is open.
+    </p>
+
+    <div class="diagram">
+      <svg viewBox="0 0 1100 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Enterprise capability system diagram">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#0b1220"/>
+          </marker>
+          <marker id="arrowR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#8a1414"/>
+          </marker>
+        </defs>
+
+        <!-- P&R overlay -->
+        <rect x="20" y="40" width="1060" height="60" fill="#f6f7f9" stroke="#cfd4dc"/>
+        <text x="40" y="68" font-family="inherit" font-size="13" font-weight="700" fill="#4a5568" letter-spacing="2">RESOURCES OVERLAY</text>
+        <text x="40" y="88" font-family="inherit" font-size="15" font-weight="700" fill="#0b1220">P&amp;R · PPBE, funding allocation, fiscal constraints</text>
+
+        <!-- DC,I overlay -->
+        <rect x="20" y="460" width="1060" height="60" fill="#0b1220" stroke="#0b1220"/>
+        <text x="40" y="488" font-family="inherit" font-size="13" font-weight="700" fill="#9aa3b2" letter-spacing="2">GOVERNANCE OVERLAY</text>
+        <text x="40" y="508" font-family="inherit" font-size="15" font-weight="700" fill="#ffffff">DC,I · data access, classification, AI policy, ATO, ADVANA/WDP</text>
+
+        <!-- DEMAND -->
+        <rect x="60" y="140" width="220" height="120" fill="#ffffff" stroke="#0b1220" stroke-width="1.5"/>
+        <text x="80" y="168" font-family="inherit" font-size="11" font-weight="700" fill="#8a1414" letter-spacing="2">DEMAND</text>
+        <text x="80" y="196" font-family="inherit" font-size="17" font-weight="700" fill="#0b1220">PP&amp;O</text>
+        <text x="80" y="216" font-family="inherit" font-size="13" fill="#4a5568">Current operational</text>
+        <text x="80" y="234" font-family="inherit" font-size="17" font-weight="700" fill="#0b1220">CD&amp;I</text>
+        <text x="80" y="252" font-family="inherit" font-size="13" fill="#4a5568">Future requirements</text>
+
+        <!-- SUPPLY -->
+        <rect x="320" y="140" width="220" height="120" fill="#ffffff" stroke="#0b1220" stroke-width="1.5"/>
+        <text x="340" y="168" font-family="inherit" font-size="11" font-weight="700" fill="#8a1414" letter-spacing="2">SUPPLY</text>
+        <text x="340" y="196" font-family="inherit" font-size="17" font-weight="700" fill="#0b1220">MCRC</text>
+        <text x="340" y="216" font-family="inherit" font-size="13" fill="#4a5568">Accessions pipeline</text>
+        <text x="340" y="234" font-family="inherit" font-size="17" font-weight="700" fill="#0b1220">M&amp;RA</text>
+        <text x="340" y="252" font-family="inherit" font-size="13" fill="#4a5568">Inventory + lifecycle</text>
+
+        <!-- PRODUCTION -->
+        <rect x="580" y="140" width="220" height="120" fill="#ffffff" stroke="#0b1220" stroke-width="1.5"/>
+        <text x="600" y="168" font-family="inherit" font-size="11" font-weight="700" fill="#8a1414" letter-spacing="2">PRODUCTION</text>
+        <text x="600" y="196" font-family="inherit" font-size="17" font-weight="700" fill="#0b1220">TECOM</text>
+        <text x="600" y="216" font-family="inherit" font-size="13" fill="#4a5568">Training pipelines</text>
+        <text x="600" y="240" font-family="inherit" font-size="13" fill="#4a5568">Capacity constraints</text>
+
+        <!-- EXECUTION -->
+        <rect x="840" y="140" width="220" height="120" fill="#ffffff" stroke="#0b1220" stroke-width="1.5"/>
+        <text x="860" y="168" font-family="inherit" font-size="11" font-weight="700" fill="#8a1414" letter-spacing="2">EXECUTION</text>
+        <text x="860" y="196" font-family="inherit" font-size="17" font-weight="700" fill="#0b1220">Operating Forces</text>
+        <text x="860" y="216" font-family="inherit" font-size="13" fill="#4a5568">Readiness outcomes</text>
+        <text x="860" y="240" font-family="inherit" font-size="13" fill="#4a5568">Mission performance</text>
+
+        <!-- forward arrows -->
+        <line x1="280" y1="200" x2="320" y2="200" stroke="#0b1220" stroke-width="1.6" marker-end="url(#arrow)"/>
+        <line x1="540" y1="200" x2="580" y2="200" stroke="#0b1220" stroke-width="1.6" marker-end="url(#arrow)"/>
+        <line x1="800" y1="200" x2="840" y2="200" stroke="#0b1220" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+        <!-- arrow labels -->
+        <text x="300" y="190" font-family="inherit" font-size="10" font-weight="700" fill="#4a5568" letter-spacing="1">REQUIREMENTS</text>
+        <text x="555" y="190" font-family="inherit" font-size="10" font-weight="700" fill="#4a5568" letter-spacing="1">PRODUCTION</text>
+        <text x="815" y="190" font-family="inherit" font-size="10" font-weight="700" fill="#4a5568" letter-spacing="1">EXECUTION</text>
+
+        <!-- supporting layers -->
+        <rect x="60" y="320" width="1000" height="100" fill="#eef0f3" stroke="#cfd4dc"/>
+        <text x="80" y="346" font-family="inherit" font-size="11" font-weight="700" fill="#4a5568" letter-spacing="2">SUPPORTING CONSTRAINTS</text>
+        <text x="80" y="378" font-family="inherit" font-size="14" fill="#0b1220"><tspan font-weight="700">Installations / MCICOM</tspan> · quality-of-life · <tspan font-weight="700">Medical / WWR</tspan> · availability · <tspan font-weight="700">MI / system owners</tspan> · data access &amp; control</text>
+        <text x="80" y="400" font-family="inherit" font-size="13" fill="#4a5568">These bound the system. They cannot be ignored without producing decisions that fail in execution.</text>
+
+        <!-- feedback loop -->
+        <path d="M 950 260 Q 950 305 950 305 Q 500 305 170 305 Q 170 280 170 260"
+              stroke="#8a1414" stroke-width="2" fill="none" marker-end="url(#arrowR)"/>
+        <text x="510" y="298" font-family="inherit" font-size="11" font-weight="700" fill="#8a1414" letter-spacing="2">FEEDBACK · READINESS &amp; GAPS REINFORM DEMAND</text>
+      </svg>
+    </div>
+
+    <p class="section-sub" style="margin-top:24px;">
+      Today, this loop is broken at every seam: demand is not standardized, supply is not visible against demand,
+      production is not measured against either, and execution feedback is anecdotal. HCEOS does not replace the
+      loop — it makes it observable, computable, and decision-grade.
+    </p>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture" style="background: var(--bg-2);">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">04</span> Architecture</div>
+    <h2 class="section-title">Three layers. Authoritative systems unchanged.</h2>
+    <p class="section-sub">
+      The architecture is deliberately minimal. Most enterprise efforts fail because they re-implement the
+      transactional layer. HCEOS does not. It governs a thin backbone, federates domain ontologies, and
+      isolates the decision layer.
+    </p>
+
+    <div class="layers">
+      <div class="layer">
+        <div>
+          <div class="lname">Layer 1</div>
+          <h3>Enterprise Backbone</h3>
+          <p style="color:var(--slate); font-size:14px; margin-top:8px;">Minimal, governed, shared. The only objects every domain must agree on.</p>
+        </div>
+        <div>
+          <div class="pills">
+            <span class="pill dark">Person</span>
+            <span class="pill dark">Organization</span>
+            <span class="pill dark">Requirement</span>
+            <span class="pill dark">Capability</span>
+            <span class="pill dark">Resource</span>
+            <span class="pill dark">Time</span>
+          </div>
+          <p style="color:var(--slate); font-size:14px; margin-top:14px;">
+            Six core entities. No more. Adding to this list requires enterprise-level sign-off.
+            This is the discipline that prevents ontology sprawl.
+          </p>
+        </div>
+      </div>
+
+      <div class="layer">
+        <div>
+          <div class="lname">Layer 2</div>
+          <h3>Domain Ontologies</h3>
+          <p style="color:var(--slate); font-size:14px; margin-top:8px;">Owned and extended by each domain. Linked to backbone, not merged into it.</p>
+        </div>
+        <div>
+          <div class="pills">
+            <span class="pill">M&amp;RA</span>
+            <span class="pill">P&amp;R</span>
+            <span class="pill">TECOM</span>
+            <span class="pill">MCRC</span>
+            <span class="pill">PP&amp;O</span>
+            <span class="pill">CD&amp;I</span>
+          </div>
+          <p style="color:var(--slate); font-size:14px; margin-top:14px;">
+            Each domain owns its own model, terminology, and refinement cadence. Federation, not unification.
+            Domain ontologies extend the backbone — they do not replace it.
+          </p>
+        </div>
+      </div>
+
+      <div class="layer">
+        <div>
+          <div class="lname">Layer 3</div>
+          <h3>Decision Layer</h3>
+          <p style="color:var(--slate); font-size:14px; margin-top:8px;">Where cross-domain questions become answers a GO can act on.</p>
+        </div>
+        <div>
+          <div class="pills">
+            <span class="pill">Risk</span>
+            <span class="pill">Forecasting</span>
+            <span class="pill">Workflow routing</span>
+            <span class="pill">Tradeoff analysis</span>
+          </div>
+          <p style="color:var(--slate); font-size:14px; margin-top:14px;">
+            The decision layer composes signals across domain ontologies. It is the only layer that produces
+            enterprise-level outputs. It does not replace authority. It informs it.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="layer-note">
+      <strong>Constraint.</strong> &nbsp; Authoritative systems remain unchanged.
+      MCTFS, MCTIMS, and similar systems of record are read from, not replaced. HCEOS adds a decision layer
+      above the transactional layer. Anything that requires re-platforming a system of record is out of scope.
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section id="usecases">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">05</span> Enterprise Manpower Use Cases</div>
+    <h2 class="section-title">Eight problems no single domain can answer.</h2>
+    <p class="section-sub">
+      Each use case starts as a manpower problem, requires data from at least three domains,
+      and ends with a GO-level decision. None of these can be answered today without weeks of staff work
+      and unverified reconciliation.
+    </p>
+
+    <div class="uc-list">
+
+      <div class="uc">
+        <div class="n">01</div>
+        <div>
+          <h3>Requirement Fulfillment Risk</h3>
+          <div class="uc-row">
+            <div class="k">Problem</div>
+            <div class="v">Which validated billets will not be filled with a trained Marine in time, and where will the gap fall?</div>
+          </div>
+          <div class="uc-row">
+            <div class="k">Cross-Domain</div>
+            <div class="v"><div class="deps"><span class="dep">PP&amp;O</span><span class="dep">M&amp;RA</span><span class="dep">TECOM</span><span class="dep">MCRC</span></div></div>
+          </div>
+          <div class="uc-row">
+            <div class="k">Decision</div>
+            <div class="v"><strong>Accept gap, reprioritize, or surge inputs.</strong> A GO call on which units take the risk.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uc">
+        <div class="n">02</div>
+        <div>
+          <h3>Capability Production Gap</h3>
+          <div class="uc-row">
+            <div class="k">Problem</div>
+            <div class="v">For a given capability (MOS, force element, mission set), is the system producing enough of it — and if not, which constraint is binding?</div>
+          </div>
+          <div class="uc-row">
+            <div class="k">Cross-Domain</div>
+            <div class="v"><div class="deps"><span class="dep">CD&amp;I</span><span class="dep">TECOM</span><span class="dep">M&amp;RA</span><span class="dep">P&amp;R</span></div></div>
+          </div>
+          <div class="uc-row">
+            <div class="k">Decision</div>
+            <div class="v"><strong>Invest in throughput, redesign the pipeline, or revise the requirement.</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uc">
+        <div class="n">03</div>
+        <div>
+          <h3>Retention Effectiveness vs Investment</h3>
+          <div class="uc-row">
+            <div class="k">Problem</div>
+            <div class="v">Are bonuses, programs, and incentives actually retaining the capabilities the force needs — or just the ones easiest to retain?</div>
+          </div>
+          <div class="uc-row">
+            <div class="k">Cross-Domain</div>
+            <div class="v"><div class="deps"><span class="dep">M&amp;RA</span><span class="dep">P&amp;R</span><span class="dep">PP&amp;O</span><span class="dep">CD&amp;I</span></div></div>
+          </div>
+          <div class="uc-row">
+            <div class="k">Decision</div>
+            <div class="v"><strong>Reallocate retention dollars by capability, not by category.</strong> Defendable in PPBE.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uc">
+        <div class="n">04</div>
+        <div>
+          <h3>Training Constraint Impact</h3>
+          <div class="uc-row">
+            <div class="k">Problem</div>
+            <div class="v">If a TECOM pipeline slips by 90 days, which units, deployments, and force-design capabilities are at risk — and by how much?</div>
+          </div>
+          <div class="uc-row">
+            <div class="k">Cross-Domain</div>
+            <div class="v"><div class="deps"><span class="dep">TECOM</span><span class="dep">PP&amp;O</span><span class="dep">M&amp;RA</span><span class="dep">CD&amp;I</span></div></div>
+          </div>
+          <div class="uc-row">
+            <div class="k">Decision</div>
+            <div class="v"><strong>Accelerate the pipeline, shift demand, or accept readiness loss.</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uc">
+        <div class="n">05</div>
+        <div>
+          <h3>Manpower–Funding Misalignment</h3>
+          <div class="uc-row">
+            <div class="k">Problem</div>
+            <div class="v">Are MILPERS and O&amp;M dollars supporting the manpower, training, and force structure plan — or funding shapes that the plan no longer requires?</div>
+          </div>
+          <div class="uc-row">
+            <div class="k">Cross-Domain</div>
+            <div class="v"><div class="deps"><span class="dep">P&amp;R</span><span class="dep">M&amp;RA</span><span class="dep">CD&amp;I</span><span class="dep">TECOM</span></div></div>
+          </div>
+          <div class="uc-row">
+            <div class="k">Decision</div>
+            <div class="v"><strong>POM realignment with traceable rationale,</strong> not narrative reconciliation.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uc">
+        <div class="n">06</div>
+        <div>
+          <h3>Operational Readiness Risk</h3>
+          <div class="uc-row">
+            <div class="k">Problem</div>
+            <div class="v">Across deployments, exercises, and contingencies, where does manpower-driven readiness risk concentrate over the next 12–24 months?</div>
+          </div>
+          <div class="uc-row">
+            <div class="k">Cross-Domain</div>
+            <div class="v"><div class="deps"><span class="dep">PP&amp;O</span><span class="dep">M&amp;RA</span><span class="dep">TECOM</span><span class="dep">Operating Forces</span><span class="dep">Medical/WWR</span></div></div>
+          </div>
+          <div class="uc-row">
+            <div class="k">Decision</div>
+            <div class="v"><strong>Where the Service accepts readiness risk vs. where it must mitigate.</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uc">
+        <div class="n">07</div>
+        <div>
+          <h3>Workforce Availability Reality</h3>
+          <div class="uc-row">
+            <div class="k">Problem</div>
+            <div class="v">How many Marines are actually available — net of medical, legal, training, and quality-of-life holds — versus on paper?</div>
+          </div>
+          <div class="uc-row">
+            <div class="k">Cross-Domain</div>
+            <div class="v"><div class="deps"><span class="dep">M&amp;RA</span><span class="dep">Medical/WWR</span><span class="dep">MCICOM</span><span class="dep">PP&amp;O</span></div></div>
+          </div>
+          <div class="uc-row">
+            <div class="k">Decision</div>
+            <div class="v"><strong>True available strength used for sourcing, sustainment, and demand calls.</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uc">
+        <div class="n">08</div>
+        <div>
+          <h3>Workflow Backlog and Decision Friction</h3>
+          <div class="uc-row">
+            <div class="k">Problem</div>
+            <div class="v">Where are board, awards, assignment, and exception workflows stalling — and what is the enterprise cost of that delay?</div>
+          </div>
+          <div class="uc-row">
+            <div class="k">Cross-Domain</div>
+            <div class="v"><div class="deps"><span class="dep">M&amp;RA</span><span class="dep">PP&amp;O</span><span class="dep">DC,I</span><span class="dep">System owners</span></div></div>
+          </div>
+          <div class="uc-row">
+            <div class="k">Decision</div>
+            <div class="v"><strong>Process redesign, authority clarification, or elimination</strong> — backed by measurable cycle time.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MVP -->
+<section id="mvp" style="background: var(--bg-2);">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">06</span> MVP · 90 Days</div>
+    <h2 class="section-title">Prove the architecture, not the enterprise.</h2>
+    <p class="section-sub">
+      Three use cases. One ontology. One application surface. At least one cross-domain linkage demonstrated.
+      The 90-day objective is not coverage. It is proof that the federated model holds.
+    </p>
+
+    <div class="mvp-wrap">
+      <div>
+        <div class="mvp-uc">
+          <h4>1. Executive Common Operating Picture</h4>
+          <p>A single view that connects validated requirements, available manpower, training throughput, and known constraints. One page. Decision-grade. No reconciliation.</p>
+        </div>
+        <div class="mvp-uc">
+          <h4>2. Board Readiness</h4>
+          <p>Boards as a workflow object — inputs, status, decisions, downstream effects — visible across M&amp;RA and PP&amp;O. The first proof that workflows are observable.</p>
+        </div>
+        <div class="mvp-uc">
+          <h4>3. Awards Workflow</h4>
+          <p>A bounded, well-understood workflow with cross-organizational handoffs. Demonstrates routing, ownership, and cycle-time measurement against a real process.</p>
+        </div>
+      </div>
+
+      <div class="mvp-constraints">
+        <h4>Hard Constraints</h4>
+        <ul>
+          <li>One ontology — extended, not duplicated.</li>
+          <li>One application surface — no command-by-command UI.</li>
+          <li>At least one cross-domain linkage demonstrated end-to-end.</li>
+          <li>Authoritative systems untouched. Read-only integration.</li>
+          <li>DC,I sign-off on data, classification, and AI usage before build.</li>
+          <li>Defined success criteria signed by sponsors before kickoff.</li>
+          <li>Hard stop at 90 days. No extension without GO-level decision.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GOVERNANCE -->
+<section id="governance">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">07</span> Information Governance Constraint</div>
+    <h2 class="section-title">DC,I is not a stakeholder. It is the boundary.</h2>
+    <p class="section-sub">
+      HCEOS only exists within DC,I authority. Architecture decisions made without DC,I alignment do not
+      survive accreditation, do not scale across the Service, and create the next set of shadow systems.
+    </p>
+
+    <div class="gov-grid">
+      <div class="gov-list">
+        <div class="gov-item">
+          <div class="gk">Constraint 01</div>
+          <div class="gv">Data access — what can be linked, by whom, under what authority.</div>
+        </div>
+        <div class="gov-item">
+          <div class="gk">Constraint 02</div>
+          <div class="gv">Classification — what crosses domains, and how separation is enforced.</div>
+        </div>
+        <div class="gov-item">
+          <div class="gk">Constraint 03</div>
+          <div class="gv">AI policy — what the decision layer is permitted to compute, recommend, or automate.</div>
+        </div>
+        <div class="gov-item">
+          <div class="gk">Constraint 04</div>
+          <div class="gv">Accreditation — ATO path, environment of record, sustainment authority.</div>
+        </div>
+        <div class="gov-item">
+          <div class="gk">Constraint 05</div>
+          <div class="gv">Environment — alignment to ADVANA / WDP, including data residency and tooling.</div>
+        </div>
+      </div>
+
+      <div class="gov-callout">
+        If this does not align with DC,I, it does not scale.<br/><br/>
+        <span style="color:#9aa3b2; font-size:14.5px; font-weight:500;">
+          Every architectural choice — backbone scope, ontology extension, AI capability,
+          environment of record — is a DC,I decision before it is a domain decision.
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IS / IS NOT -->
+<section style="background: var(--bg-2);">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">08</span> Definition</div>
+    <h2 class="section-title">What this is. What it is not.</h2>
+    <p class="section-sub">
+      Most failures in this space come from scope ambiguity. The lines below are not negotiable inside HCEOS.
+    </p>
+
+    <div class="compare">
+      <div class="col is">
+        <h3>HCEOS Is</h3>
+        <ul>
+          <li>A federated decision layer above authoritative systems.</li>
+          <li>A cross-domain integration model with an enforced backbone.</li>
+          <li>A workflow visibility and routing system for enterprise processes.</li>
+          <li>A governance frame for ontology growth across the Service.</li>
+          <li>A traceable basis for GO-level decisions and PPBE defense.</li>
+        </ul>
+      </div>
+      <div class="col isnot">
+        <h3>HCEOS Is Not</h3>
+        <ul>
+          <li>A replacement for MCTFS, MCTIMS, or any system of record.</li>
+          <li>A new system of record for any domain.</li>
+          <li>An AI decision-maker. AI informs; commanders decide.</li>
+          <li>An M&amp;RA-only tool. It fails the moment it is scoped that way.</li>
+          <li>A platform purchase. The product is the operating model.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RISKS -->
+<section id="risks">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">09</span> Where This Will Break</div>
+    <h2 class="section-title">Be honest about how this fails.</h2>
+    <p class="section-sub">
+      These are not hypothetical. Each has occurred in comparable enterprise efforts. Naming them is the
+      precondition for avoiding them.
+    </p>
+
+    <div class="break-list">
+      <div class="b">
+        <h4>No shared ownership of architecture</h4>
+        <p>If no single body owns the backbone and ontology governance, every domain rebuilds. The architecture is the first thing to fund and the first thing to staff.</p>
+      </div>
+      <div class="b">
+        <h4>DC,I data restrictions</h4>
+        <p>Cross-domain linkage is a data authority question before it is a tooling question. Without explicit DC,I direction, integration stalls at staff-level coordination.</p>
+      </div>
+      <div class="b">
+        <h4>P&amp;R builds a parallel system</h4>
+        <p>If P&amp;R is treated as a consumer, not a co-architect, it builds a separate financial decision system. The Service then has two enterprise layers and zero alignment.</p>
+      </div>
+      <div class="b">
+        <h4>TECOM data not decision-grade</h4>
+        <p>Training pipeline data is fragmented across MCTIMS, school-level systems, and spreadsheets. Without remediation, throughput cannot be modeled and capability gaps cannot be sourced to constraints.</p>
+      </div>
+      <div class="b">
+        <h4>PP&amp;O demand signal unclear</h4>
+        <p>If the operational requirement is not expressed as a structured, time-phased object, supply, production, and resources have nothing to align to.</p>
+      </div>
+      <div class="b">
+        <h4>M&amp;RA workflows not standardized</h4>
+        <p>Boards, assignments, awards, and exceptions vary by organization and personality. Workflow visibility cannot be built on processes that are not yet processes.</p>
+      </div>
+      <div class="b">
+        <h4>Ontology governance fails</h4>
+        <p>Without a hard governance model, every domain extends the backbone unilaterally. Within 18 months the architecture is unrecognizable and unmaintainable.</p>
+      </div>
+      <div class="b">
+        <h4>Palantir creates a shadow system</h4>
+        <p>If the integrator becomes the operator, the Service loses ownership of the model, the data, and the decisions. Vendor leverage compounds across every renewal.</p>
+      </div>
+      <div class="b">
+        <h4>Scope creep kills the MVP</h4>
+        <p>Every stakeholder will ask for a tenth use case before the first three are stable. Without a sponsor willing to refuse, the 90-day MVP becomes an 18-month program with no decision output.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PALANTIR Q -->
+<section style="background: var(--bg-2);">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">10</span> Vendor Conversation</div>
+    <h2 class="section-title">We are not asking for a demo.</h2>
+    <p class="section-sub">
+      A demo answers feasibility. We are not at feasibility. We are at architecture, governance, and exit.
+      The questions below define a productive conversation.
+    </p>
+
+    <div class="q-list">
+      <div class="q"><div class="qn">Q1</div><div class="qt">Can Foundry support this multi-domain architecture as designed — federated, not merged?</div></div>
+      <div class="q"><div class="qn">Q2</div><div class="qt">How do you prevent duplicate ontologies emerging across organizations using the same platform?</div></div>
+      <div class="q"><div class="qn">Q3</div><div class="qt">Where does this architecture fail at scale — name the failure modes, not the success cases.</div></div>
+      <div class="q"><div class="qn">Q4</div><div class="qt">What cannot be done in 90 days, and what is the honest minimum to prove the architecture?</div></div>
+      <div class="q"><div class="qn">Q5</div><div class="qt">How do you prevent shadow systems from emerging inside Foundry itself?</div></div>
+      <div class="q"><div class="qn">Q6</div><div class="qt">How does the government maintain ownership of the ontology, the workflows, and the model?</div></div>
+      <div class="q"><div class="qn">Q7</div><div class="qt">What breaks inside ADVANA / WDP — performance, access, classification, sustainment?</div></div>
+      <div class="q"><div class="qn">Q8</div><div class="qt">What does DC,I need to approve first, and what cannot start until they do?</div></div>
+      <div class="q"><div class="qn">Q9</div><div class="qt">What does this cost at scale — including sustainment, training, and exit?</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPLEMENTATION -->
 <section>
-    <div class="container">
-        <div class="section-header">
-            <h2>The "How": Federated Architecture</h2>
-        </div>
-        <div class="grid-2">
-            <div class="card">
-                <h3>Layer 1: The Backbone</h3>
-                <p>A unified ontology centered on the <strong>Marine</strong>. We link the person to their requirement, their capability, and their resource constraints across all domains.</p>
-            </div>
-            <div class="card">
-                <h3>Layer 2: Decision Intelligence</h3>
-                <p>Instead of dashboards, we build <strong>Decision Objects</strong>. We forecast risk in assignments, boards, and retention before they impact readiness.</p>
-            </div>
-        </div>
-        <p style="margin-top: 30px; font-style: italic; text-align: center;">Authoritative Systems (MCTFS, MCTIMS) remain protected. HCEOS is the intelligence layer on top.</p>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">11</span> Implementation Approach</div>
+    <h2 class="section-title">Six phases. Hard gates between each.</h2>
+    <p class="section-sub">
+      Each phase ends with a go / no-go gate. No phase advances on momentum.
+      The decision is not "should we keep going?" — it is "have we cleared the gate?"
+    </p>
+
+    <div class="phases">
+      <div class="phase">
+        <div class="pn">Phase 1</div>
+        <h4>Enterprise Alignment</h4>
+        <p>Sponsors, scope, ownership, and decision rights set across M&amp;RA, P&amp;R, TECOM, MCRC, PP&amp;O, CD&amp;I, DC,I.</p>
+      </div>
+      <div class="phase">
+        <div class="pn">Phase 2</div>
+        <h4>Data Feasibility</h4>
+        <p>What data exists, where, in what condition, and under what authority. DC,I-led.</p>
+      </div>
+      <div class="phase">
+        <div class="pn">Phase 3</div>
+        <h4>Ontology Design</h4>
+        <p>Backbone fixed. Domain ontologies extend, not duplicate. Governance model signed.</p>
+      </div>
+      <div class="phase">
+        <div class="pn">Phase 4</div>
+        <h4>MVP Build</h4>
+        <p>Three use cases. One surface. One ontology. Cross-domain linkage demonstrated.</p>
+      </div>
+      <div class="phase">
+        <div class="pn">Phase 5</div>
+        <h4>Executive Decision</h4>
+        <p>Service leadership reviews evidence — does the architecture hold, or does it not?</p>
+      </div>
+      <div class="phase">
+        <div class="pn">Phase 6</div>
+        <h4>Scale or Stop</h4>
+        <p>Either fund Service-wide federation under shared ownership, or terminate cleanly.</p>
+      </div>
     </div>
+
+    <div class="gates">
+      <strong>Hard gates.</strong> &nbsp;
+      Phase 1 → 2: documented sponsor commitment from every domain or no advance.
+      Phase 2 → 3: DC,I authority to integrate the named data or no advance.
+      Phase 3 → 4: signed ontology governance or no advance.
+      Phase 4 → 5: at least one cross-domain decision produced end-to-end or no advance.
+      Phase 5 → 6: GO-level decision recorded, with a defensible scale plan or a clean termination.
+    </div>
+  </div>
 </section>
 
-<section style="background: #fafafa;">
-    <div class="container">
-        <div class="section-header">
-            <h2>Enterprise Use Cases</h2>
-        </div>
-        <table class="ontology-table">
-            <thead>
-                <tr>
-                    <th>The Human Problem</th>
-                    <th>Cross-Domain Dependency</th>
-                    <th>The Decision Enabled</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Requirement Fulfillment Risk</strong><br><span class="tag">Inventory Gap</span></td>
-                    <td>CD&I (Force Design) + M&RA (Inventory) + P&R (Funding)</td>
-                    <td>Reprioritize structure vs. accepting a long-term readiness gap.</td>
-                </tr>
-                <tr>
-                    <td><strong>Capability Production Gap</strong><br><span class="tag">Training Friction</span></td>
-                    <td>MCRC (Accessions) + TECOM (Seats) + M&RA (Staffing)</td>
-                    <td>Identify bottlenecks in schoolhouse throughput before they hit the Fleet.</td>
-                </tr>
-                <tr>
-                    <td><strong>Retention Effectiveness</strong><br><span class="tag">Fiscal ROI</span></td>
-                    <td>M&RA (Behavior) + P&R (PPBE) + DC,I (Policy)</td>
-                    <td>Allocate incentive funding based on real-time retention forecasts.</td>
-                </tr>
-                <tr>
-                    <td><strong>Workflow Decision Friction</strong><br><span class="tag">Process Debt</span></td>
-                    <td>Awards + Boards + Medical/WWR + Records</td>
-                    <td>Automate the "hand-off" between agencies to reduce administrative burden on Marines.</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</section>
-
-<section>
-    <div class="container">
-        <div class="section-header">
-            <h2>Information Governance (DC,I)</h2>
-        </div>
-        <div class="grid-2">
-            <div>
-                <p>This system only exists within <strong>DC,I constraints</strong>. To scale, HCEOS must reside in the War Data Platform / ADVANA environment.</p>
-                <ul style="margin-top: 20px; list-style-position: inside;">
-                    <li>Data Access & Classification Security</li>
-                    <li>Ethical AI Policy Adherence</li>
-                    <li>Full Auditability & Data Lineage</li>
-                    <li>ATO-compliant Environment</li>
-                </ul>
-            </div>
-            <div class="card" style="background: white; border: 2px dashed var(--usmc-gold);">
-                <h3>90-Day MVP</h3>
-                <p><strong>Prove the Architecture, Not the Enterprise.</strong></p>
-                <p>One cross-domain linkage (e.g., M&RA + P&R) across three surfaces: Executive COP, Board Readiness, and Awards Workflow.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section>
-    <div class="container">
-        <div class="section-header">
-            <h2>Where This Will Break</h2>
-        </div>
-        <div class="failure-modes">
-            <h3>Blunt Realities</h3>
-            <ul class="failure-list">
-                <li>No shared ownership of the Architecture</li>
-                <li>DC,I data restrictions prevent ingest</li>
-                <li>P&R builds a parallel shadow system</li>
-                <li>TECOM data remains non-decision-grade</li>
-                <li>PP&O demand signal remains unclear</li>
-                <li>M&RA workflows are not standardized</li>
-                <li>Ontology governance fails</li>
-                <li>Scope creep kills the 90-day MVP</li>
-            </ul>
-        </div>
-    </div>
+<!-- CLOSING -->
+<section class="closing">
+  <div class="wrap">
+    <div class="eyebrow" style="color:#9aa3b2;"><span class="num" style="color:var(--accent-2);">12</span> Closing</div>
+    <h2>We do not need another system. We need a governed way to understand how the Marine Corps produces capability.</h2>
+    <p class="final">If this is built independently across organizations, it will fail before it scales.</p>
+  </div>
 </section>
 
 <footer>
-    <div class="container">
-        <p class="final-statement">"The risk is not building this wrong. <br>The risk is building it five times."</p>
-        <p style="color: #888;">If this is built independently across organizations, it will fail before it scales.</p>
-    </div>
+  <div class="wrap">
+    <div>HCEOS · Concept Brief · Pre-decisional</div>
+    <div>Service-level federated architecture · For executive review</div>
+  </div>
 </footer>
 
 </body>
